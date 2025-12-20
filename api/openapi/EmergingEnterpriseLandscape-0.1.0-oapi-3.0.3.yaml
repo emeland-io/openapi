@@ -41,11 +41,286 @@ paths:
                 items:
                   type: object
                   properties:
-                    id:
+                    systemId:
                       type: string
                       format: uuid
                     displayName:
                       type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/systems/{systemId}:
+    get:
+      description: Retrieve details of a specific system by its UUID.
+      tags: [landscape, phase1]
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/System'
+        '404':
+          description: Not Found
+  /landscape/apis: 
+    get:
+      description: Retrieve all APIs in the landscape.
+      tags: [landscape, phase1]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apiId:
+                      type: string
+                      format: uuid
+                    displayName:
+                      type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/apis/{apiId}:
+    get:
+      description: Retrieve details of a specific API by its UUID.
+      tags: [landscape, phase1]
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+        '404':
+          description: Not Found
+  /landscape/components:
+    get:
+      description: Retrieve all components in the landscape.
+      tags: [landscape, phase1]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    componentId:
+                      type: string
+                      format: uuid
+                    displayName:
+                      type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/components/{componentId}:
+    get:
+      description: Retrieve details of a specific component by its UUID.
+      tags: [landscape, phase1]
+      parameters:
+        - name: componentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+        '404':
+          description: Not Found
+  /landscape/system-instances:
+    get:
+      description: Retrieve all system instances in the landscape.
+      tags: [landscape, phase1]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    systemInstanceId:
+                      type: string
+                      format: uuid
+                    displayName:
+                      type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/system-instances/{systemInstanceId}:
+    get:
+      description: Retrieve details of a specific system instance by its UUID.
+      tags: [landscape, phase1]
+      parameters:
+        - name: systemInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemInstance'
+        '404':
+          description: Not Found
+  /landscape/api-instances:
+    get:
+      description: Retrieve all API instances in the landscape.
+      tags: [landscape, phase1]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apiInstanceId:
+                      type: string
+                      format: uuid
+                    displayName:
+                      type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/api-instances/{apiInstanceId}:
+    get:
+      description: Retrieve details of a specific API instance by its UUID.
+      tags: [landscape, phase1]
+      parameters:
+        - name: apiInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInstance'
+        '404':
+          description: Not Found
+  /landscape/component-instances:
+    get:
+      description: Retrieve all component instances in the landscape.
+      tags: [landscape, phase1]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    componentInstanceId:
+                      type: string
+                      format: uuid
+                    displayName:
+                      type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/component-instances/{componentInstanceId}:
+    get:
+      description: Retrieve details of a specific component instance by its UUID.
+      tags: [landscape, phase1]
+      parameters:
+        - name: componentInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentInstance'
+        '404':
+          description: Not Found
+  /landscape/findings:
+    get:
+      description: Retrieve all findings in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    findingId:
+                      type: string
+                      format: uuid
+                    summary:
+                      type: string
+                    reference:
+                      type: string
+                      format: uri
+  /landscape/findings/{findingId}:
+    get:
+      description: Retrieve details of a specific finding by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: findingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Finding'
+        '404':
+          description: Not Found
   /events/register:
     post:
       description: Register a new event consumer.
@@ -87,6 +362,39 @@ paths:
           description: OK
 components: 
   schemas:
+    Finding:
+      type: object
+      description: Represents the finding of a rule violation. Rules may either be defined for semantic correctness of the model or for compliance checks against external regulations and standards.
+      properties:
+        findingId:
+          type: string
+          format: uuid
+        summary:
+          type: string
+        description:
+          type: string
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+      required:
+        - findingId
+        - summary
+        - resources
+    ResourceRef:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          format: uuid
+        resourceType:
+          type: string
+        reference:
+          type: string
+          format: uri
+      required:
+        - resourceId
+        - resourceType
     System:
       type: object
       description: Represents a system in the EmELand model. A system is a high-level entity that displays a complex behavior. It encapsulates various APIs and software components.
