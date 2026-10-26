@@ -1,0 +1,3053 @@
+openapi: '3.0.3'
+info:
+  title: Emerging Enterprise Landscape API
+  description: API to query data collectors for an emerging enterprise landscape.
+  version: '0.1.0'
+tags:
+  - name: landscape
+    description: query information to the landscape found.
+  - name: p0_structure
+    description: endpoints for elements of the model pertaining to phase 0 of the EmELand model concerning contexts.
+  - name: p1_structure
+    description: endpoints for elements of the model pertaining to phase 1 of the EmELand model concerning system structure, interfaces and system instances.
+  - name: p2_iam
+    description: endpoints for elements of the model pertaining to phase 2 of the EmELand model concerning identities, roles and access management.
+  - name: p3_capabilities
+    description: endpoints for elements of the model pertaining to phase 3 of the EmELand model concerning offered capabilities and orders to consume these capabilities.
+  - name: p4_billing
+    description: endpoints for elements of the model pertaining to phase 4 of the EmELand model concerning cost accounting and billing.
+  - name: p5_risk
+    description: endpoints for elements of the model pertaining to phase 5 of the EmELand model concerning managing risk and security.
+  - name: p6_observability
+    description: endpoints for elements of the model pertaining to phase 6 of the EmELand model concerning observability, logging and monitoring.
+  - name: p7_capacity
+    description: endpoints for elements of the model pertaining to phase 7 of the EmELand model concerning capacity planing and management.
+  - name: p8_data_catalog
+    description: endpoints for elements of the model pertaining to phase 8 of the EmELand model concerning a data catalog.
+  - name: events
+    description: register and query for events about changes in the landscape.
+servers:
+  - url: https://emeland.local/v1
+paths:
+  /landscape/contexts:
+    get:
+      description: Retrieve all contexts in the landscape.
+      tags: [landscape, p0_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/contexts/{contextId}:
+    get:
+      description: Retrieve details of a specific context by its UUID.
+      tags: [landscape, p0_structure]
+      parameters:
+        - name: contextId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Context'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/contextTypes:
+    get:
+      description: Retrieve all context types in the landscape.
+      tags: [landscape, p0_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/contextTypes/{contextTypeId}:
+    get:
+      description: Retrieve details of a specific context type by its UUID.
+      tags: [landscape, p0_structure]
+      parameters:
+        - name: contextTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/systems:
+    get:
+      description: Retrieve all systems in the landscape.
+      tags: [landscape, p1_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/systems/{systemId}:
+    get:
+      description: Retrieve details of a specific system by its UUID.
+      tags: [landscape, p1_structure]
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/System'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/apis: 
+    get:
+      description: Retrieve all APIs in the landscape.
+      tags: [landscape, p1_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/apis/{apiId}:
+    get:
+      description: Retrieve details of a specific API by its UUID.
+      tags: [landscape, p1_structure]
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/components:
+    get:
+      description: Retrieve all components in the landscape.
+      tags: [landscape, p1_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/components/{componentId}:
+    get:
+      description: Retrieve details of a specific component by its UUID.
+      tags: [landscape, p1_structure]
+      parameters:
+        - name: componentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/system-instances:
+    get:
+      description: Retrieve all system instances in the landscape.
+      tags: [landscape, p1_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/system-instances/{systemInstanceId}:
+    get:
+      description: Retrieve details of a specific system instance by its UUID.
+      tags: [landscape, p1_structure]
+      parameters:
+        - name: systemInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemInstance'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/api-instances:
+    get:
+      description: Retrieve all API instances in the landscape.
+      tags: [landscape, p1_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/api-instances/{apiInstanceId}:
+    get:
+      description: Retrieve details of a specific API instance by its UUID.
+      tags: [landscape, p1_structure]
+      parameters:
+        - name: apiInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInstance'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/component-instances:
+    get:
+      description: Retrieve all component instances in the landscape.
+      tags: [landscape, p1_structure]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/component-instances/{componentInstanceId}:
+    get:
+      description: Retrieve details of a specific component instance by its UUID.
+      tags: [landscape, p1_structure]
+      parameters:
+        - name: componentInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentInstance'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/findings:
+    get:
+      description: Retrieve all findings in the landscape.
+      tags: [landscape, p5_risk]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindingView'
+  /landscape/findings/{findingId}:
+    get:
+      description: Retrieve details of a specific finding by its UUID.
+      tags: [landscape, p5_risk]
+      parameters:
+        - name: findingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingView'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/findingTypes:
+    get:
+      description: Retrieve all types of findings known to the landscape.
+      tags: [landscape, p5_risk]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindingType'
+  /landscape/findingTypes/{findingTypeId}:
+    get:
+      description: Retrieve a known types of findings by its UUID.
+      tags: [landscape, p5_risk]
+      parameters:
+        - name: findingTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindingType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/metrics:
+    get:
+      description: Retrieve all metrics in the landscape.
+      tags: [landscape, p6_observability]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/metrics/{metricId}:
+    get:
+      description: Retrieve details of a specific metric by its UUID.
+      tags: [landscape, p6_observability]
+      parameters:
+        - name: metricId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metric'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/thresholds:
+    get:
+      description: Retrieve all thresholds in the landscape.
+      tags: [landscape, p6_observability]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/thresholds/{thresholdId}:
+    get:
+      description: Retrieve details of a specific threshold by its UUID.
+      tags: [landscape, p6_observability]
+      parameters:
+        - name: thresholdId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Threshold'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/metricInstances:
+    get:
+      description: Retrieve all metric instances in the landscape.
+      tags: [landscape, p6_observability]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/metricInstances/{metricInstanceId}:
+    get:
+      description: Retrieve details of a specific metric instance by its UUID.
+      tags: [landscape, p6_observability]
+      parameters:
+        - name: metricInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricInstance'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/metricValues:
+    get:
+      description: Retrieve all metric values in the landscape.
+      tags: [landscape, p6_observability]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/metricValues/{metricValueId}:
+    get:
+      description: Retrieve details of a specific metric value by its UUID.
+      tags: [landscape, p6_observability]
+      parameters:
+        - name: metricValueId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricValue'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/capacityResourceTypes:
+    get:
+      description: Retrieve all capacity resource types in the landscape.
+      tags: [landscape, p7_capacity]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/capacityResourceTypes/{capacityResourceTypeId}:
+    get:
+      description: Retrieve details of a specific capacity resource type by its UUID.
+      tags: [landscape, p7_capacity]
+      parameters:
+        - name: capacityResourceTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapacityResourceType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/capacities:
+    get:
+      description: Retrieve all capacity entries in the landscape.
+      tags: [landscape, p7_capacity]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/capacities/{capacityId}:
+    get:
+      description: Retrieve details of a specific capacity entry by its UUID.
+      tags: [landscape, p7_capacity]
+      parameters:
+        - name: capacityId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Capacity'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/filter-rules:
+    get:
+      description: Retrieve all filter rules registered in this modelsrv instance.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/filter-rules/{ruleId}:
+    get:
+      description: Retrieve a filter rule by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterRule'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/merge-rules:
+    get:
+      description: Retrieve all merge rules registered in this modelsrv instance.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/merge-rules/{ruleId}:
+    get:
+      description: Retrieve a merge rule by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: ruleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MergeRule'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/nodeTypes:
+    get:
+      description: Retrieve all node types in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/nodeTypes/{nodeTypeId}:
+    get:
+      description: Retrieve details of a specific node type by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: nodeTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/nodes:
+    get:
+      description: Retrieve all nodes in the landscape discovered so far.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NodeSummaryView'
+  /landscape/nodes/{nodeId}:
+    get:
+      description: Retrieve details of a specific node by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: nodeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeView'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/orgUnits:
+    get:
+      description: Retrieve all org units in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/orgUnits/{orgUnitId}:
+    get:
+      description: Retrieve details of a specific org unit by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: orgUnitId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgUnit'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/groups:
+    get:
+      description: Retrieve all groups in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/groups/{groupId}:
+    get:
+      description: Retrieve details of a specific group by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/identities:
+    get:
+      description: Retrieve all identities in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/identities/{identityId}:
+    get:
+      description: Retrieve details of a specific identity by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: identityId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identity'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/permissionSpecs:
+    get:
+      description: Retrieve all permission specifications in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/permissionSpecs/{permissionSpecId}:
+    get:
+      description: Retrieve details of a specific permission specification by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: permissionSpecId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionSpec'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/roleSpecs:
+    get:
+      description: Retrieve all role specifications in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/roleSpecs/{roleSpecId}:
+    get:
+      description: Retrieve details of a specific role specification by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: roleSpecId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleSpec'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/permissions:
+    get:
+      description: Retrieve all realized permissions in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/permissions/{permissionId}:
+    get:
+      description: Retrieve details of a specific permission by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: permissionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/roles:
+    get:
+      description: Retrieve all realized roles in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/roles/{roleId}:
+    get:
+      description: Retrieve details of a specific role by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/bindings:
+    get:
+      description: Retrieve all bindings in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/bindings/{bindingId}:
+    get:
+      description: Retrieve details of a specific binding by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: bindingId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Binding'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/artifacts:
+    get:
+      description: Retrieve all artifacts in the landscape.
+      tags: [landscape, p8_data_catalog]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/artifacts/{artifactId}:
+    get:
+      description: Retrieve details of a specific artifact by its UUID.
+      tags: [landscape, p8_data_catalog]
+      parameters:
+        - name: artifactId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artifact'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/artifactInstances:
+    get:
+      description: Retrieve all artifact instances in the landscape.
+      tags: [landscape, p8_data_catalog]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/artifactInstances/{artifactInstanceId}:
+    get:
+      description: Retrieve details of a specific artifact instance by its UUID.
+      tags: [landscape, p8_data_catalog]
+      parameters:
+        - name: artifactInstanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactInstance'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/products:
+    get:
+      description: Retrieve all externally procured products tracked in the landscape.
+      tags: [landscape]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+  /landscape/products/{productId}:
+    get:
+      description: Retrieve details of a specific product by its UUID.
+      tags: [landscape]
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/capabilities:
+    get:
+      description: Retrieve all capabilities registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Capability'
+  /landscape/capabilities/{capabilityId}:
+    get:
+      description: Retrieve a capability by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: capabilityId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Capability'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/parameters:
+    get:
+      description: Retrieve all parameters registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Parameter'
+  /landscape/parameters/{parameterId}:
+    get:
+      description: Retrieve a parameter by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: parameterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parameter'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/validValues:
+    get:
+      description: Retrieve all valid values registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidValue'
+  /landscape/validValues/{validValueId}:
+    get:
+      description: Retrieve a valid value by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: validValueId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidValue'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/capabilityVersions:
+    get:
+      description: Retrieve all capability versions registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CapabilityVersion'
+  /landscape/capabilityVersions/{capabilityVersionId}:
+    get:
+      description: Retrieve a capability version by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: capabilityVersionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapabilityVersion'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/variants:
+    get:
+      description: Retrieve all variants registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Variant'
+  /landscape/variants/{variantId}:
+    get:
+      description: Retrieve a variant by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: variantId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variant'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/dependencies:
+    get:
+      description: Retrieve all dependencies registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dependency'
+  /landscape/dependencies/{dependencyId}:
+    get:
+      description: Retrieve a dependency by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: dependencyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dependency'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/orders:
+    get:
+      description: Retrieve all orders registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+  /landscape/orders/{orderId}:
+    get:
+      description: Retrieve an order by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/orderItems:
+    get:
+      description: Retrieve all order items registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderItem'
+  /landscape/orderItems/{orderItemId}:
+    get:
+      description: Retrieve an order item by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: orderItemId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderItem'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /landscape/boundValues:
+    get:
+      description: Retrieve all bound values registered in the landscape.
+      tags: [landscape, p3_capabilities]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BoundValue'
+  /landscape/boundValues/{boundValueId}:
+    get:
+      description: Retrieve a bound value by its UUID.
+      tags: [landscape, p3_capabilities]
+      parameters:
+        - name: boundValueId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoundValue'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /events/register:
+    post:
+      description: Register a new event consumer.
+      tags: [events]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callbackUrl:
+                  type: string
+                  format: uri
+              required:
+                - callbackUrl
+      responses:
+        '201':
+          description: Created
+  /events/unregister:
+    post:
+      description: Unregister an existing event consumer.
+      tags: [events]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callbackUrl:
+                  type: string
+                  format: uri
+              required:
+                - callbackUrl
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: URL of callback not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /events/subscribers:
+    get:
+      description: Retrieve the list of registered event consumers.
+      tags: [events]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: uri
+  /events/query/{sequenceId}:
+    get:
+      description: Retrieve changes since the given sequence ID.
+      tags: [events]
+      parameters:
+        - name: sequenceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '308':
+          description: |
+            Found. This sequence ID does not exist and the url returned with this status code is the next existing one 
+            in the sequence.
+        '404':
+          description: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorString'
+  /events/push:
+    post:
+      description: Push a new event to a registered consumer. Used by an upstream server to notify subscribers of model changes.
+      tags: [events]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: OK
+  /test:
+    get:
+      responses:
+        '200':
+          description: OK
+components: 
+  schemas:
+    ErrorString:
+      type: string
+    Finding:
+      type: object
+      description: 'Represents the finding of a rule violation. Rules may either be defined for semantic correctness of the model or for compliance checks against external regulations and standards.'
+      properties:
+        findingId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the finding.'
+        description:
+          type: string
+        type:
+          type: string
+          format: uuid
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the finding.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - findingId
+        - displayName
+        - type
+        - resources
+    FindingTypeView:
+      type: object
+      description: A resolved finding type reference for read API responses.
+      properties:
+        findingTypeId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          description: The human-readable name of the finding class.
+        description:
+          type: string
+          description: A brief description of the finding class's purpose and scope.
+      required:
+        - findingTypeId
+        - displayName
+    ResourceView:
+      type: object
+      description: A resolved resource reference for read API responses.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The UUID of the resource referenced.
+        resourceType:
+          enum:
+            # phase-0 context types
+            - Context
+            - ContextType
+            - Node
+            - NodeType
+            # phase-1 structure types
+            - System
+            - SystemInstance
+            - API
+            - ApiInstance
+            - Component
+            - ComponentInstance
+            # phase-2 IAM types
+            - Identity
+            - OrgUnit
+            - Group
+            - Binding
+            - RoleSpec
+            - PermissionSpec
+            - Role
+            - Permission
+            - Product
+            # phase-5 risk types
+            - Finding
+            - FindingType
+            # phase-8 artifact types
+            - Artifact
+            - ArtifactInstance
+            # event pipeline visibility
+            - FilterRule
+            - MergeRule
+            # phase-3 capabilities
+            - Capability
+            - Parameter
+            - ValidValue
+            - CapabilityVersion
+            - Variant
+            - Dependency
+            - Order
+            - OrderItem
+            - BoundValue
+            # phase-7 capacity types
+            - Capacity
+            - CapacityResourceType
+            # phase-6 observability types
+            - Metric
+            - Threshold
+            - MetricInstance
+            - MetricValue
+          description: The type of the resource referenced.
+        displayName:
+          type: string
+          description: The human-readable name of the resource referenced.
+      required:
+        - id
+        - resourceType
+    FindingView:
+      type: object
+      description: An enriched finding for read API responses with resolved type and resource references.
+      properties:
+        findingId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          description: The human-readable name of the finding.
+        description:
+          type: string
+        findingType:
+          $ref: '#/components/schemas/FindingTypeView'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceView'
+        reference:
+          type: string
+          format: uri
+          description: A URI reference to this finding.
+        annotations:
+          type: array
+          description: A set of key-value pairs for storing additional metadata about the finding.
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - findingId
+        - displayName
+        - findingType
+        - resources
+        - reference
+    FindingType:
+      type: object
+      description: 'Represents a type of findings in the EmELand model. A finding type defines the type of rule violation and provides metadata about the rule. They are defined by the original source of a finding, e.g., a data collector or a compliance standard. Use the FindingType of a Finding to ensure any further processing or filtering is only applied to findings that are actually understood by the filter.'
+      properties:
+        findingTypeId:
+          type: string
+          description: 'An UUID that uniquely identifies the finding class. It should be generated and assigned when the finding class is created and must remain constant throughout the finding class''s lifecycle. The field is optional in some contexts, such as when creating a new finding class where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the finding class.'
+        description:
+          type: string
+          description: 'A brief description of the finding class''s purpose and scope.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the finding class.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+    FilterRule:
+      type: object
+      description: 'Documents a filter registered in a modelsrv instance. Filter rules describe how change events may be passed through, suppressed, or expanded by the event filter chain.'
+      properties:
+        ruleId:
+          type: string
+          description: 'An UUID that uniquely identifies the filter rule.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the filter rule.'
+        description:
+          type: string
+          description: 'A brief description of what the filter rule does.'
+      required:
+        - ruleId
+        - displayName
+    MergeRule:
+      type: object
+      description: 'Documents a merge rule registered in a modelsrv instance. Merge rules describe how change events may be merged into existing resources.'
+      properties:
+        ruleId:
+          type: string
+          description: 'An UUID that uniquely identifies the merge rule.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the merge rule.'
+        description:
+          type: string
+          description: 'A brief description of what the merge rule does.'
+      required:
+        - ruleId
+        - displayName
+    Context:
+      type: object
+      description: 'Represents a context in the EmELand model. A context is a high-level categorization or domain that groups systems and other entities based on shared characteristics or purposes.'
+      properties:
+        contextId:
+          type: string
+          description: 'An UUID that uniquely identifies the context. It should be generated and assigned when the context is created and must remain constant throughout the context''s lifecycle. The field is optional in some contexts, such as when creating a new context where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the context.'
+        description:
+          type: string
+          description: 'A brief description of the context''s purpose and scope.'
+        type:
+          type: string
+          description: 'The UUID of the context type that defines the characteristics of this context.'
+          format: uuid
+        parent:
+          type: string
+          description: 'The UUID of the parent context, if applicable. This field is optional and may be omitted if the context has no parent. It establishes a hierarchical relationship between contexts.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the context.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - contextId
+        - displayName
+        - type
+    ResourceRef:
+      type: object
+      properties:
+        resourceId:
+          description: The UUID of the resource referenced.
+          type: string
+          format: uuid
+        resourceType:
+          enum:
+            # phase-0 context types
+            - Context
+            - ContextType
+            - Node
+            - NodeType
+            # phase-1 structure types
+            - System
+            - SystemInstance
+            - API
+            - ApiInstance
+            - Component
+            - ComponentInstance
+            # phase-2 IAM types
+            - Identity
+            - OrgUnit
+            - Group
+            - Binding
+            - RoleSpec
+            - PermissionSpec
+            - Role
+            - Permission
+            - Product
+            # phase-5 risk types
+            - Finding
+            - FindingType
+            # phase-8 artifact types
+            - Artifact
+            - ArtifactInstance
+            # event pipeline visibility
+            - FilterRule
+            - MergeRule
+            # phase-3 capabilities
+            - Capability
+            - Parameter
+            - ValidValue
+            - CapabilityVersion
+            - Variant
+            - Dependency
+            - Order
+            - OrderItem
+            - BoundValue
+            # phase-7 capacity types
+            - Capacity
+            - CapacityResourceType
+            # phase-6 observability types
+            - Metric
+            - Threshold
+            - MetricInstance
+            - MetricValue
+          description: The type of the resource referenced.
+        reference:
+          description: A URI reference to the resource.
+          type: string
+          format: uri
+      required:
+        - resourceId
+        - resourceType
+    System:
+      type: object
+      description: 'Represents a system in the EmELand model. A system is a high-level entity that displays a complex behavior. It encapsulates various APIs and software components.'
+      properties:
+        systemId:
+          type: string
+          description: 'An UUID that uniquely identifies the system. It should be generated and assigned when the System is created and must remain constant throughout the System''s lifecycle. The field is optional in some contexts, such as when creating a new system where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+          description: 'A brief description of the system''s purpose and functionality.'
+        version:
+          $ref: '#/components/schemas/Version'
+        abstract:
+          type: boolean
+          description: 'Indicates whether the system is abstract (true) or concrete (false). Abstract systems are primarily used to represent external systems that provide APIs consumed by a concrete system defined within the landscape.'
+        parent:
+          type: string
+          description: 'The UUID of the parent system, if applicable. This field is optional and may be omitted if the system has no parent. It establishes a hierarchical relationship between systems.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the system.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - displayName
+        - abstract
+    API:
+      type: object
+      properties:
+        apiId:
+          type: string
+          description: 'An UUID that uniquely identifies the API. It should be generated and assigned when the API is created and must remain constant throughout the API''s lifecycle. The field is optional in some contexts, such as when creating a new API where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the API.'
+        description:
+          type: string
+          description: 'A brief description of the API''s purpose and functionality.'
+        version:
+          $ref: '#/components/schemas/Version'
+        type:
+          enum:
+            - 'Unknown'
+            - 'OpenAPI'
+            - 'GraphQL'
+            - 'gRPC'
+            - 'Other'
+          description: 'The type of the API (e.g., OpenAPI, gRPC, GraphQL). If the type is unknown, it should be set to "Unknown". If the type does not fit any predefined categories, it should be set to "Other". In such cases, additional details about the API type should be provided in the description field.'
+        system:
+          type: string
+          description: 'The UUID of the system that provides this API.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the API instance.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - displayName
+        - type
+    Component:
+      type: object
+      properties:
+        componentId:
+          type: string
+          description: 'An UUID that uniquely identifies the component. It should be generated and assigned when the component is created and must remain constant throughout the component''s lifecycle. The field is optional in some contexts, such as when creating a new component where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the component.'
+        description:
+          type: string
+          description: 'A brief description of the component''s purpose and functionality.'
+        version:
+          $ref: '#/components/schemas/Version'
+        system:
+          type: string
+          description: 'The UUID of the system that contains this component.'
+          format: uuid
+        consumes:
+          type: array
+          description: 'A list of API UUIDs that this component consumes.'
+          items:
+            type: string
+            format: uuid
+        provides:
+          type: array
+          description: 'A list of API UUIDs that this component provides.'
+          items:
+            type: string
+            format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the component.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - displayName
+        - system
+    SystemInstance:
+      type: object
+      properties:
+        systemInstanceId:
+          type: string
+          description: 'An UUID that uniquely identifies the system instance. It should be generated and assigned when the instance is created and must remain constant throughout the instance''s lifecycle. The field is optional in some contexts, such as when creating a new instance where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the system instance.'
+        system:
+          type: string
+          description: 'The UUID of the system that this instance realizes.'
+          format: uuid
+        context:
+          type: string
+          description: 'The UUID of the context that contains this system instance. This can be left empty if the Context resource has not been created yet, but will trigger an entry in the finding list.'
+          format: uuid
+        orderItem:
+          type: string
+          description: 'The UUID of the OrderItem this system instance fulfills. Leave empty for multi-tenant systems that serve many orders.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the system instance.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - systemInstanceId
+        - displayName
+        - system
+    ApiInstance:
+      type: object
+      properties:
+        apiInstanceId:
+          type: string
+          description: 'An UUID that uniquely identifies the API instance. It should be generated and assigned when the instance is created and must remain constant throughout the instance''s lifecycle. The field is optional in some contexts, such as when creating a new instance where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the API instance.'
+        api:
+          type: string
+          description: 'The UUID of the API that this instance realizes. This can be left empty if the API resource has not been created yet, but will trigger an entry in the finding list.'
+          format: uuid
+        systemInstance:
+          type: string
+          description: 'The UUID of the system instance that contains this API instance. This can be left empty if the SystemInstance resource has not been created yet, but will trigger an entry in the finding list.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the API instance.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - apiInstanceId
+        - displayName
+    InstanceListItem:
+      type: object
+      properties:
+        instanceId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        reference:
+          type: string
+          format: uri
+    InstanceList: 
+      type: array
+      items:
+        $ref: '#/components/schemas/InstanceListItem'
+    ComponentInstance:
+      type: object
+      properties:
+        componentInstanceId:
+          type: string
+          description: 'An UUID that uniquely identifies the component instance. It should be generated and assigned when the instance is created and must remain constant throughout the instance''s lifecycle. The field is optional in some contexts, such as when creating a new instance where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the component instance.'
+        component:
+          type: string
+          description: 'The UUID of the component that this instance realizes.'
+          format: uuid
+        systemInstance:
+          type: string
+          description: 'The UUID of the system instance that contains this component instance.'
+          format: uuid
+        consumes:
+          type: array
+          description: 'A list of API instance UUIDs that this component instance consumes.'
+          items:
+            type: string
+            format: uuid
+        provides:
+          type: array
+          description: 'A list of API instance UUIDs that this component instance provides.'
+          items:
+            type: string
+            format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the component instance.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - componentInstanceId
+        - displayName
+        - component
+        - systemInstance
+        - consumes
+        - provides
+    Annotation:
+      type: object
+      description: Represents a key-value pair used for annotating systems and other entities in the EmELand model.
+      properties:
+        key:
+          type: string
+          description: The key of the annotation. It serves as the identifier for the annotation entry.
+        value:
+          type: string
+          description: The value associated with the annotation key. It provides additional information or metadata related to the key.
+      required:
+        - key
+        - value
+    Version:
+      description: Version information for all objects in the EmELand model.
+      type: object
+      properties:
+        version: 
+          type: string
+          description: Structured version string (e.g., "1.0.0"). The use of semantic versioning is recommended.
+        availableFrom:
+          type: string
+          format: date-time
+          description: Timestamp indicating when this version becomes available. Format is 2006-01-02. May be in the future
+        deprecatedFrom:
+          type: string
+          format: date-time
+          description: Timestamp indicating when this version is considered deprecated. Consumers should avoid using this 
+            version after this date. Format is 2006-01-02. May be in the future. Must be later than availableFrom.
+        terminatedFrom:
+          type: string
+          format: date-time
+          description: Timestamp indicating when this version is considered terminated. Consumers must not use this version 
+            after this date. Format is 2006-01-02. Must be later than deprecatedFrom.
+      required:
+        - version
+    ValueMapping:
+      type: object
+      description: Maps a ValidValue on the requiring side of a Dependency to a ValidValue on the depended-on Capability.
+      properties:
+        fromValidValueId:
+          type: string
+          format: uuid
+          description: The ValidValue UUID on the requiring Variant side.
+        toValidValueId:
+          type: string
+          format: uuid
+          description: The ValidValue UUID on the depended-on Capability side.
+      required:
+        - fromValidValueId
+        - toValidValueId
+    ProductionVersion:
+      description: |
+        A software release line or cut of a product identified by lifecycle dates and constituent artefacts.
+      type: object
+      properties:
+        availableFrom:
+          type: string
+          format: date-time
+          description: When this release line becomes available for use.
+        deprecatedFrom:
+          type: string
+          format: date-time
+          description: When consumers should begin migrating away from this release line.
+        terminatedFrom:
+          type: string
+          format: date-time
+          description: After this time the release line must not be used for new workloads.
+        artefacts:
+          type: array
+          description: Identifiers of artefacts that belong to this release line together.
+          items:
+            type: string
+            format: uuid
+    Product:
+      type: object
+      description: 'A product procured by the enterprise—software artefacts released together from the same legal or natural entity, optionally tied to an organizational vendor and versioned lifecycle windows.'
+      properties:
+        productId:
+          type: string
+          description: 'An UUID that uniquely identifies the product in the landscape.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the product.'
+        description:
+          type: string
+          description: 'A brief description of the product.'
+        vendor:
+          type: string
+          description: 'The UUID of the organizational unit acting as vendor or supplier for this product.'
+          format: uuid
+        versions:
+          type: array
+          description: 'Lifecycle windows for lines of artefacts released together under this product.'
+          items:
+            $ref: '#/components/schemas/ProductionVersion'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the product.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - productId
+        - displayName
+    Capability:
+      type: object
+      description: 'A capability represents a technical building block offered by a product or system.'
+      properties:
+        capabilityId:
+          type: string
+          description: 'An UUID that uniquely identifies the capability.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the capability.'
+        offers:
+          type: array
+          description: 'ValidValue UUIDs this capability offers (a subset of its Parameters'' values).'
+          items:
+            type: string
+            format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the capability.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - capabilityId
+        - displayName
+    Parameter:
+      type: object
+      description: 'A parameter defines an identifier for a grouping of discrete ValidValues.'
+      properties:
+        parameterId:
+          type: string
+          description: 'An UUID that uniquely identifies the parameter.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the parameter.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the parameter.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - parameterId
+        - displayName
+    ValidValue:
+      type: object
+      description: 'A discrete, finite value that is valid for a Parameter.'
+      properties:
+        validValueId:
+          type: string
+          description: 'An UUID that uniquely identifies the valid value.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the value (e.g. "8GB", "10000-users").'
+        parameter:
+          type: string
+          description: 'The UUID of the Parameter this value belongs to.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the valid value.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - validValueId
+        - displayName
+        - parameter
+    CapabilityVersion:
+      type: object
+      description: 'A versioned lifecycle of a Capability, with availability windows.'
+      properties:
+        capabilityVersionId:
+          type: string
+          description: 'An UUID that uniquely identifies the capability version.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the capability version.'
+        capability:
+          type: string
+          description: 'The UUID of the Capability this version belongs to.'
+          format: uuid
+        version:
+          $ref: '#/components/schemas/Version'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the capability version.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - capabilityVersionId
+        - displayName
+        - capability
+    Variant:
+      type: object
+      description: 'A Variant models a dependency pattern for a CapabilityVersion under a set of required Parameter values.'
+      properties:
+        variantId:
+          type: string
+          description: 'An UUID that uniquely identifies the variant.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the variant.'
+        capabilityVersion:
+          type: string
+          description: 'The UUID of the CapabilityVersion this variant belongs to.'
+          format: uuid
+        requires:
+          type: array
+          description: 'ValidValue UUIDs this variant requires from its Parameters.'
+          items:
+            type: string
+            format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the variant.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - variantId
+        - displayName
+        - capabilityVersion
+    Dependency:
+      type: object
+      description: 'A Dependency links a Variant to another Capability it needs, with optional ValidValue mappings.'
+      properties:
+        dependencyId:
+          type: string
+          description: 'An UUID that uniquely identifies the dependency.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the dependency.'
+        variant:
+          type: string
+          description: 'The UUID of the Variant that owns this dependency.'
+          format: uuid
+        capability:
+          type: string
+          description: 'The UUID of the Capability this dependency requires.'
+          format: uuid
+        mappings:
+          type: array
+          description: 'Mappings of ValidValues from the variant to the depended-on Capability.'
+          items:
+            $ref: '#/components/schemas/ValueMapping'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the dependency.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - dependencyId
+        - displayName
+        - variant
+        - capability
+    Order:
+      type: object
+      description: 'An Order tracks Capabilities ordered by an OrgUnit after commercial processes complete.'
+      properties:
+        orderId:
+          type: string
+          description: 'An UUID that uniquely identifies the order.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the order.'
+        orgUnit:
+          type: string
+          description: 'The UUID of the OrgUnit that placed the order.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the order.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - orderId
+        - displayName
+        - orgUnit
+    OrderItem:
+      type: object
+      description: 'An OrderItem selects a Capability (version and variant) and binds Parameter values for an Order.'
+      properties:
+        orderItemId:
+          type: string
+          description: 'An UUID that uniquely identifies the order item.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the order item.'
+        order:
+          type: string
+          description: 'The UUID of the Order this item belongs to.'
+          format: uuid
+        capability:
+          type: string
+          description: 'The UUID of the Capability being ordered.'
+          format: uuid
+        capabilityVersion:
+          type: string
+          description: 'The UUID of the CapabilityVersion being ordered.'
+          format: uuid
+        variant:
+          type: string
+          description: 'The UUID of the Variant selected for this order item.'
+          format: uuid
+        contexts:
+          type: array
+          description: 'Context UUIDs in which this order item is fulfilled.'
+          items:
+            type: string
+            format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the order item.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - orderItemId
+        - displayName
+        - order
+        - capability
+        - capabilityVersion
+        - variant
+    BoundValue:
+      type: object
+      description: 'A BoundValue records a specific ValidValue chosen for a Parameter on an OrderItem.'
+      properties:
+        boundValueId:
+          type: string
+          description: 'An UUID that uniquely identifies the bound value.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the bound value.'
+        orderItem:
+          type: string
+          description: 'The UUID of the OrderItem this binding belongs to.'
+          format: uuid
+        parameter:
+          type: string
+          description: 'The UUID of the Parameter being bound.'
+          format: uuid
+        validValue:
+          type: string
+          description: 'The UUID of the ValidValue selected for the Parameter.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the bound value.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - boundValueId
+        - displayName
+        - orderItem
+        - parameter
+        - validValue
+    ContextType:
+      type: object
+      description: 'Represents a type of context in the EmELand model. A context type defines the characteristics and categorization of contexts.'
+      properties:
+        contextTypeId:
+          type: string
+          description: 'An UUID that uniquely identifies the context type. It should be generated and assigned when the context type is created and must remain constant throughout the context type''s lifecycle. The field is optional in some contexts, such as when creating a new context type where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the context type.'
+        description:
+          type: string
+          description: 'A brief description of the context type''s purpose and scope.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the context type.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - contextTypeId
+        - displayName
+    NodeTypeView:
+      type: object
+      description: A resolved node type reference for read API responses.
+      properties:
+        nodeTypeId:
+          type: string
+          format: uuid
+        resource:
+          type: string
+          enum:
+            - NodeType
+          description: The type of the resource referenced.
+        displayName:
+          type: string
+          description: The human-readable name of the node type.
+      required:
+        - nodeTypeId
+        - resource
+        - displayName
+    NodeSummaryView:
+      type: object
+      description: An enriched node summary for read API list responses with resolved node type reference.
+      properties:
+        nodeId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          description: The human-readable name of the node.
+        description:
+          type: string
+          description: A human-readable description of the node.
+        reference:
+          type: string
+          format: uri
+          description: A URI reference to this node.
+        nodeType:
+          $ref: '#/components/schemas/NodeTypeView'
+        annotations:
+          type: array
+          description: A set of key-value pairs for storing additional metadata about the node.
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - nodeId
+        - displayName
+        - reference
+        - nodeType
+    NodeView:
+      type: object
+      description: An enriched node for read API detail responses with resolved node type reference.
+      properties:
+        nodeId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          description: The human-readable name of the node.
+        description:
+          type: string
+          description: A human-readable description of the node.
+        reference:
+          type: string
+          format: uri
+          description: A URI reference to this node.
+        nodeType:
+          $ref: '#/components/schemas/NodeTypeView'
+        annotations:
+          type: array
+          description: A set of key-value pairs for storing additional metadata about the node.
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - nodeId
+        - displayName
+        - reference
+        - nodeType
+    NodeType:
+      type: object
+      description: 'Represents a type of node in the EmELand model. A node type defines the characteristics and capabilities of nodes that belong to this type.'
+      properties:
+        nodeTypeId:
+          type: string
+          description: 'An UUID that uniquely identifies the node type. It should be generated and assigned when the node type is created and must remain constant throughout the node type''s lifecycle. The field is optional in some contexts, such as when creating a new node type where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the node type.'
+        description:
+          type: string
+          description: 'A brief description of the node type''s purpose and characteristics.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the node type.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - nodeTypeId
+        - displayName
+    Node:
+      type: object
+      description: 'Represents a node in the EmELand model. A node is an instance of a node type and represents a specific entity within the landscape.'
+      properties:
+        nodeId:
+          type: string
+          description: 'An UUID that uniquely identifies the node. It should be generated and assigned when the node is created and must remain constant throughout the node''s lifecycle. The field is optional in some contexts, such as when creating a new node where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the node.'
+        description:
+          type: string
+          description: 'A human-readable description of the node.'
+        nodeType:
+          type: string
+          description: 'The UUID of the node type that this node is an instance of.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the node.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - nodeId
+        - displayName
+        - nodeType
+    OrgUnit:
+      type: object
+      description: 'Represents a organizational unit in the EmELand model. This can be used to represent departments, teams, or any other organizational structure relevant to the landscape.'
+      properties:
+        orgUnitId:
+          type: string
+          description: 'An UUID that uniquely identifies the organizational unit. It should be generated and assigned when the organizational unit is created and must remain constant throughout the organizational unit''s lifecycle. The field is optional in some contexts, such as when creating a new organizational unit where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the organizational unit.'
+        description:
+          type: string
+          description: 'A brief description of the organizational unit''s purpose and characteristics.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the organizational unit.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - orgUnitId
+        - displayName
+    Group:
+      type: object
+      description: 'Represents a group of identities in the EmELand model.'
+      properties:
+        groupId:
+          type: string
+          description: 'An UUID that uniquely identifies the group. It should be generated and assigned when the group is created and must remain constant throughout the group''s lifecycle. The field is optional in some contexts, such as when creating a new group where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the group.'
+        description:
+          type: string
+          description: 'A brief description of the group''s purpose and characteristics.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the group.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - groupId
+        - displayName
+    Identity:
+      type: object
+      description: 'Represents an identity in the EmELand model. An identity can represent a person, a service account, or any other identifiable entity that can be associated with access rights and permissions within the landscape.'
+      properties:
+        identityId:
+          type: string
+          description: 'An UUID that uniquely identifies the identity. It should be generated and assigned when the identity is created and must remain constant throughout the identity''s lifecycle. The field is optional in some contexts, such as when creating a new identity where the ID may be generated by the system itself.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the identity.'
+        description:
+          type: string
+          description: 'A brief description of the identity''s purpose and characteristics.'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the identity.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - identityId
+        - displayName
+    SubjectRef:
+      type: object
+      description: Subject of a binding — either a group or an identity (mutually exclusive).
+      properties:
+        groupId:
+          type: string
+          format: uuid
+        identityId:
+          type: string
+          format: uuid
+    PermissionSpec:
+      type: object
+      description: 'Organizational definition of a permission (spec / requirement).'
+      properties:
+        permissionSpecId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - permissionSpecId
+        - displayName
+    RoleSpec:
+      type: object
+      description: 'Organizational definition of a role referencing permission specs.'
+      properties:
+        roleSpecId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+            format: uuid
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - roleSpecId
+        - displayName
+    Permission:
+      type: object
+      description: 'Realized permission instance linked to a permission spec within the landscape.'
+      properties:
+        permissionId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        spec:
+          type: string
+          description: 'UUID of the PermissionSpec this permission realizes.'
+          format: uuid
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - permissionId
+        - displayName
+        - spec
+    Role:
+      type: object
+      description: 'Realized role with spec reference, granted permissions, scope resources, and context.'
+      properties:
+        roleId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        spec:
+          type: string
+          description: 'UUID of the RoleSpec this role realizes.'
+          format: uuid
+        permissions:
+          type: array
+          items:
+            type: string
+            format: uuid
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+        context:
+          type: string
+          description: 'UUID of the Context where this role applies.'
+          format: uuid
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - roleId
+        - displayName
+        - spec
+        - context
+    Binding:
+      type: object
+      description: 'Binds a subject (group or identity) to a role.'
+      properties:
+        bindingId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        role:
+          type: string
+          format: uuid
+        subject:
+          $ref: '#/components/schemas/SubjectRef'
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - bindingId
+        - displayName
+        - role
+        - subject
+    Artifact:
+      type: object
+      description: 'Represents a binary artefact (e.g. software package, archive, binary executable) tracked in the landscape.'
+      properties:
+        artifactId:
+          type: string
+          description: 'UUID that uniquely identifies the artifact.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'A human-readable name of the artifact.'
+        description:
+          type: string
+          description: 'A description of the artifact.'
+        hash:
+          type: string
+          description: 'Hash of the binary object in the format algorithm:hex (e.g. "SHA256:9e9b...").'
+          pattern: '^[A-Za-z0-9]+:[0-9a-f]+$'
+          example: 'SHA256:9e9b755d63b36acf30c12a9a3fc379243714c1c6d3dd72861da637f336ebb35b'
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the artifact.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - artifactId
+        - displayName
+    ArtifactInstance:
+      type: object
+      description: 'Represents a specific instance (copy/location) of an Artifact.'
+      properties:
+        artifactInstanceId:
+          type: string
+          description: 'UUID that uniquely identifies the artifact instance.'
+          format: uuid
+        displayName:
+          type: string
+          description: 'A human-readable name of the artifact instance.'
+        description:
+          type: string
+          description: 'A description of the artifact instance.'
+        artifact:
+          type: string
+          description: 'UUID of the referenced Artifact.'
+          format: uuid
+        annotations:
+          type: array
+          description: 'A set of key-value pairs for storing additional metadata about the artifact instance.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - artifactInstanceId
+        - displayName
+    CapacityCategory:
+      type: string
+      description: Classification of how much capacity exists in a context.
+      enum:
+        - requested
+        - provided
+        - consumed
+    CapacityResourceTypeRef:
+      type: object
+      description: Reference to a capacity resource type vocabulary entry.
+      properties:
+        capacityResourceTypeId:
+          type: string
+          format: uuid
+      required:
+        - capacityResourceTypeId
+    CapacityResourceType:
+      type: object
+      description: 'Shared vocabulary for a measurable capacity limit with a unit.'
+      properties:
+        capacityResourceTypeId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        unit:
+          type: string
+          description: 'Default measurement unit for amounts of this type (e.g. cores, GiB).'
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - capacityResourceTypeId
+        - displayName
+        - unit
+    CapacityContextRef:
+      type: object
+      description: Reference to a Phase 0 context.
+      properties:
+        contextId:
+          type: string
+          format: uuid
+      required:
+        - contextId
+    Capacity:
+      type: object
+      description: 'Represents how much of a capacity resource type exists in a context, categorized as requested, provided, or consumed.'
+      properties:
+        capacityId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          description: 'The human-readable name of the capacity entry.'
+        description:
+          type: string
+          description: 'A brief description of the capacity entry.'
+        resourceTypeRef:
+          $ref: '#/components/schemas/CapacityResourceTypeRef'
+        contextRef:
+          $ref: '#/components/schemas/CapacityContextRef'
+        category:
+          $ref: '#/components/schemas/CapacityCategory'
+        amount:
+          type: string
+          description: 'Non-negative decimal quantity of the capacity resource type in this context and category.'
+        annotations:
+          type: array
+          description: 'Extended metadata for the capacity entry.'
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - capacityId
+        - displayName
+        - resourceTypeRef
+        - contextRef
+        - category
+        - amount
+    MetricRef:
+      type: object
+      description: Reference to a Metric vocabulary entry.
+      properties:
+        metricId:
+          type: string
+          format: uuid
+      required:
+        - metricId
+    Metric:
+      type: object
+      description: 'Abstract measurement with business value. Metrics are not time series; they may also name a compound metric whose formula lives in annotations.'
+      properties:
+        metricId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - metricId
+        - displayName
+    Threshold:
+      type: object
+      description: 'Condition of arbitrary complexity attached to a MetricInstance. The condition itself lives in annotations (emeland.io/threshold.expression), not as schema fields.'
+      properties:
+        thresholdId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        metricInstanceRef:
+          $ref: '#/components/schemas/MetricInstanceRef'
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - thresholdId
+        - displayName
+        - metricInstanceRef
+    MetricInstanceRef:
+      type: object
+      description: Reference to a MetricInstance.
+      properties:
+        metricInstanceId:
+          type: string
+          format: uuid
+      required:
+        - metricInstanceId
+    MetricInstance:
+      type: object
+      description: 'A concrete instantiation of a Metric bound to an optional subject (the resource the metric is measured for). MetricInstances are not time series; they name the measured thing, while MetricValue carries the current reading.'
+      properties:
+        metricInstanceId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        metricRef:
+          $ref: '#/components/schemas/MetricRef'
+        subject:
+          $ref: '#/components/schemas/ResourceRef'
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - metricInstanceId
+        - displayName
+    MetricValue:
+      type: object
+      description: 'Current reading of a MetricInstance. The value field is the current value only, not a timeline.'
+      properties:
+        metricValueId:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        description:
+          type: string
+        metricInstanceRef:
+          $ref: '#/components/schemas/MetricInstanceRef'
+        value:
+          type: string
+          description: 'Current value of the metric (unvalidated string).'
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+      required:
+        - metricValueId
+        - displayName
+        - metricInstanceRef
+        - value
+    Event:
+      type: object
+      description: Represents a change in the landscape model for event replication between servers.
+      properties:
+        operation:
+          description: The type of the event.
+          enum:
+            - Unknown
+            - Create
+            - Update
+            - Delete
+        kind:
+          type: string
+          description: >
+            Discriminator for the replicated resource. Interpretation matches domain resource names
+            (e.g. Node, Context, System, ApiInstance, OrgUnit). Subscribers unmarshal `resource` based on this value.
+        resourceId:
+          type: string
+          format: uuid
+          description: Set for delete events when no resource body is sent.
+        resource:
+          description: >
+            JSON object for create/update events. Shape aligns with the corresponding landscape GET entity
+            response for that kind where one exists.
+          type: object
+          additionalProperties: true
+      required:
+        - operation
+        - kind

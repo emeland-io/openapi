@@ -1,20 +1,7 @@
-# Emerging Enterprise Landscape OpenAPI
+# EmELand OpenAPI
 
-This is the OpenAPI specification of the Emerging Enterprise Lanscape (EmELand) example mapping. 
+Versioned OpenAPI specifications and browsable Markdown docs published from EmELand services.
 
-EmELand is a description of an abstract model of the data required for professional IT system operation. The example mapping is one possible form to realize this abstract model. The OpenAPI specification is intended as an example and a starting point for you to define your own mapping.
+## APIs
 
-The example mapping also provides working tools and APIs to utilize the EmELand model in you IT operations, especially automating common IT operations tasks.
-
-
-## Authors and acknowledgment
-
-Copyright 2025 Lutz Behnke
-
-## License
-
-The specification and other contents of this repository are released under the Apache License 2.0
-
-## Project status
-
-The project is under active development.
+- [modelsrv](modelsrv/) — Emerging Enterprise Landscape API
