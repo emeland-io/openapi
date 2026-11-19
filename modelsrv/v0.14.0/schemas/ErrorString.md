@@ -1,0 +1,4 @@
+# ErrorString
+
+- **Type:** string
+

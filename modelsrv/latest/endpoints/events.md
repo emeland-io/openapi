@@ -2,6 +2,21 @@
 
 register and query for events about changes in the landscape.
 
+### GET `/events/origin-count`
+
+Count live resources whose OriginURL matches the query parameter.
+Used by an upstream publisher to reconcile whether a subscriber is missing
+resources for a given origin before resending them.
+
+**Parameters**
+
+- `originUrl` (query, required, string (uri))
+
+**Responses**
+
+- `200` — OK
+  - `application/json`: [OriginCount](../schemas/OriginCount.md)
+
 ### POST `/events/push`
 
 Push a new event to a registered consumer. Used by an upstream server to notify subscribers of model changes.

@@ -2,7 +2,7 @@
 
 API to query data collectors for an emerging enterprise landscape.
 
-- **Release:** `v0.13.0`
+- **Release:** `v0.14.0`
 - **API version:** `0.1.0`
 
 ## Servers
@@ -68,6 +68,7 @@ API to query data collectors for an emerging enterprise landscape.
 - [Order](schemas/Order.md) — An Order tracks Capabilities ordered by an OrgUnit after commercial processes complete.
 - [OrderItem](schemas/OrderItem.md) — An OrderItem selects a Capability (version and variant) and binds Parameter values for an Order.
 - [OrgUnit](schemas/OrgUnit.md) — Represents a organizational unit in the EmELand model.
+- [OriginCount](schemas/OriginCount.md) — Live-resource count for one OriginURL in this node's latest state.
 - [Parameter](schemas/Parameter.md) — A parameter defines an identifier for a grouping of discrete ValidValues.
 - [Permission](schemas/Permission.md) — Realized permission instance linked to a permission spec within the landscape.
 - [PermissionSpec](schemas/PermissionSpec.md) — Organizational definition of a permission (spec / requirement).

@@ -6,4 +6,5 @@ Published OpenAPI specs and rendered Markdown docs for [emeland-io/modelsrv](htt
 
 ## Versions
 
+- [v0.14.0](v0.14.0/)
 - [v0.13.0](v0.13.0/)
