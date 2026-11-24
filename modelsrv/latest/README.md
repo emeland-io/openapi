@@ -2,7 +2,7 @@
 
 API to query data collectors for an emerging enterprise landscape.
 
-- **Release:** `v0.14.0`
+- **Release:** `v0.15.0`
 - **API version:** `0.1.0`
 
 ## Servers
